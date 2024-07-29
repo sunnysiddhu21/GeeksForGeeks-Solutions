@@ -11,10 +11,35 @@ class Solution {
     int maxProduct(vector<int>& arr) {
         // code here
         int n = arr.size();
-        if (n < 2) return 0; 
-        sort(arr.begin(), arr.end());
+        if (n < 2) return 0;
+
+        int maxi = INT_MIN;
+        int secMaxi = INT_MIN;
+        int cnt=0;
+
+        for (int i = 0; i < n; ++i) {
+            if (arr[i] > maxi) {
+                secMaxi = maxi;
+                maxi = arr[i];
+            } else if (arr[i] > secMaxi && arr[i] != maxi) {
+                secMaxi = arr[i];
+            }
+        }
         
-        return arr[n-1] * arr[n-2];
+        for(int i=0; i<n; i++){
+            if(arr[i]==maxi){
+                cnt++;
+            }
+        }
+        
+        if(cnt>=2){
+            return maxi*maxi;
+        }else{
+            return maxi * secMaxi;
+        }
+        
+
+       
     }
 };
 
